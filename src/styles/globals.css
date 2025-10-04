@@ -125,3 +125,23 @@
     opacity: 1;
   }
 }
+
+@layer utilities {
+  .type-caret {
+    display: inline-block;
+    width: 0.6ch;
+    border-right: 2px solid currentColor;
+    margin-left: 0.1ch;
+    animation: ida-caret-blink 0.9s steps(1, end) infinite;
+  }
+}
+
+@keyframes ida-caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .type-caret { animation: none; }
+}
