@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Ida Toldnæs — Frontend developer portfolio. Projects, case studies, and contact."
+    />
+    <title>Ida Toldnæs — Portfolio</title>
+
+    <!-- Dark-mode bootstrap: saved choice > system preference -->
+    <script>
+      (function () {
+        try {
+          const saved = localStorage.getItem("theme"); // "light" | "dark" | null
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          const theme = saved || (prefersDark ? "dark" : "light");
+          document.documentElement.classList.toggle("dark", theme === "dark");
+        } catch (_) {}
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
