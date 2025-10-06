@@ -10,34 +10,71 @@ export default function Home() {
     []
   );
 
+  // H1 typing control
   const [startH1, setStartH1] = useState(false);
   const [h1Done, setH1Done] = useState(false);
+
+  // Paragraph visibility gate (controls when H2 is allowed to start)
+  const [paragraphVisible, setParagraphVisible] = useState(false);
+
+  // H2 typing control
   const [startH2, setStartH2] = useState(false);
 
+  // Kick off H1
   useEffect(() => {
     if (reduceMotion) {
       setStartH1(true);
       setH1Done(true);
-      setStartH2(true);
+      setParagraphVisible(true);
       return;
     }
-    const t = setTimeout(() => setStartH1(true), 700);
+    const t = setTimeout(() => setStartH1(true), 360);
     return () => clearTimeout(t);
   }, [reduceMotion]);
 
+  // When H1 finishes, decide when the paragraph is "arrived"
   useEffect(() => {
-    if (!h1Done || reduceMotion) return;
-    const t = setTimeout(() => setStartH2(true), 700);
-    return () => clearTimeout(t);
+    if (!h1Done) return;
+    if (reduceMotion) {
+      setParagraphVisible(true);
+      return;
+    }
+
+    // Desktop (lg+): wait for the CSS fade (700ms). Mobile: immediate.
+    const isLg =
+      typeof window !== "undefined" &&
+      window.matchMedia("(min-width: 1024px)").matches;
+
+    if (isLg) {
+      const t = setTimeout(() => setParagraphVisible(true), 700);
+      return () => clearTimeout(t);
+    } else {
+      setParagraphVisible(true);
+    }
   }, [h1Done, reduceMotion]);
 
+  // Start H2 only when paragraph has arrived
+  useEffect(() => {
+    if (paragraphVisible) setStartH2(true);
+  }, [paragraphVisible]);
+
   return (
-    <section className="mx-auto max-w-[1100px] px-8 py-10">
-      {/* items-stretch ensures both columns share height on desktop */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch rounded-2xl p-6 lg:p-8 ring-1 ring-white/15 backdrop-blur-sm">
+    <section className="relative z-[1] mx-auto max-w-[1100px] px-8 py-10">
+      <div
+        className="
+          grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch
+          rounded-2xl p-6 lg:p-8
+          ring-1 ring-black/10 dark:ring-white/20
+          bg-white/25 dark:bg-white/5
+          backdrop-blur-xl
+          shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),_0_8px_32px_rgba(0,0,0,0.2)]
+          border border-white/30 dark:border-white/10
+          transition-all duration-700
+        "
+      >
         {/* Left: polaroid — desktop only */}
         <div className="order-2 lg:order-1 lg:h-full hidden lg:flex items-center justify-center">
-          <div className="relative w-full max-w-[320px] bg-white/90 dark:bg-white/10 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10">
+          <div className="relative w-full max-w-[320px] bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
             <img
               src={idaMain}
               alt="Ida smiling on a boardwalk"
@@ -50,34 +87,30 @@ export default function Home() {
 
         {/* Right: text stack (and mobile image inline) */}
         <div className="order-1 lg:order-2 lg:h-full flex">
-          <div className="flex flex-col justify-center gap-6 sm:gap-8 w-full max-w-prose">
-            {/* H1 */}
-            <div>
-              {/* Mobile: static H1 at the very top */}
-              <h1
-                className="text-4xl sm:text-5xl lg:hidden"
-                style={{ fontFamily: '"Permanent Marker", system-ui, sans-serif' }}
-              >
-                Hi, I’m Ida!
-              </h1>
-
-              {/* Desktop: typewriter H1 */}
-              <div className="hidden lg:block">
-                <TypewriterHeading
-                  as="h1"
-                  text="Hi, I’m Ida!"
-                  start={startH1}
-                  startDelayMs={450}
-                  charDelayMs={95}
-                  className="text-5xl xl:text-6xl"
-                  onDone={() => setH1Done(true)}
-                />
-              </div>
-            </div>
+          <div
+            className="
+              flex flex-col justify-center gap-6 sm:gap-8
+              w-full max-w-prose
+              items-center lg:items-start
+              text-center lg:text-left
+              mx-auto lg:mx-0
+            "
+          >
+            {/* H1 — a bit faster, no post-blink (prevents double caret) */}
+            <TypewriterHeading
+              as="h1"
+              text="Hi, I’m Ida!"
+              start={startH1}
+              startDelayMs={360}
+              charDelayMs={100}
+              endBlinkMs={0}
+              className="text-4xl sm:text-5xl"
+              onDone={() => setH1Done(true)}
+            />
 
             {/* Mobile-only polaroid between H1 and paragraph */}
-            <div className="lg:hidden">
-              <div className="relative w-full max-w-[320px] bg-white/90 dark:bg-white/10 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10">
+            <div className="lg:hidden w-full">
+              <div className="relative w-full max-w-[320px] mx-auto bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
                 <img
                   src={idaMain}
                   alt="Ida smiling on a boardwalk"
@@ -88,14 +121,14 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Paragraph — ALWAYS visible on mobile; fades only on lg+ */}
+            {/* Paragraph — static on mobile; fades only on lg+ */}
             <p
               className={[
-                "max-w-prose",
-                "opacity-100", // mobile: no fade
-                "lg:transition-opacity lg:duration-700", // fade only on lg+
+                "max-w-prose mx-auto lg:mx-0",
+                "opacity-100",
+                "lg:transition-opacity lg:duration-700",
                 h1Done ? "lg:opacity-100" : "lg:opacity-0",
-                "motion-reduce:lg:transition-none", // respect reduced motion on lg+
+                "motion-reduce:lg:transition-none",
               ].join(" ")}
             >
               As a frontend developer, I combine a love for problem-solving with an
@@ -103,28 +136,16 @@ export default function Home() {
               spark a bit of joy when people use them.
             </p>
 
-            {/* H2 */}
-            <div>
-              {/* Mobile: static H2 after paragraph */}
-              <h2
-                className="text-3xl sm:text-4xl lg:hidden"
-                style={{ fontFamily: '"Permanent Marker", system-ui, sans-serif' }}
-              >
-                Nice To Meet Ya!
-              </h2>
-
-              {/* Desktop: typewriter H2 */}
-              <div className="hidden lg:block">
-                <TypewriterHeading
-                  as="h2"
-                  text="Nice To Meet Ya!"
-                  start={startH2}
-                  startDelayMs={0}
-                  charDelayMs={75}
-                  className="text-4xl xl:text-5xl"
-                />
-              </div>
-            </div>
+            {/* H2 — short pause, comfy pace, blink ~2 times after finishing */}
+            <TypewriterHeading
+              as="h2"
+              text="Nice To Meet Ya!"
+              start={startH2}
+              startDelayMs={80}
+              charDelayMs={105}
+              endBlinkMs={1600}   // ≈ 2 blinks (since caret blink is 0.8s)
+              className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl"
+            />
           </div>
         </div>
       </div>
