@@ -59,11 +59,11 @@ export default function Home() {
   }, [paragraphVisible]);
 
   return (
-    <section className="relative z-[1] mx-auto max-w-[1100px] px-8 py-10">
+    <section className="relative z-[1] mx-auto max-w-[1100px] px-2 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <div
         className="
-          grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch
-          rounded-2xl p-6 lg:p-8
+          grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-7 lg:gap-8 items-stretch
+          rounded-lg sm:rounded-2xl p-3 sm:p-6 lg:p-8
           ring-1 ring-black/10 dark:ring-white/20
           bg-white/25 dark:bg-white/5
           backdrop-blur-xl
