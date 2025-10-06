@@ -113,7 +113,7 @@ export default function Home() {
               <div className="relative w-full max-w-[320px] mx-auto bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
                 <img
                   src={idaMain}
-                  alt="Ida smiling on a boardwalk"
+                  alt="Ida on a rooftop"
                   className="block w-full aspect-[4/5] object-cover [filter:grayscale(100%)]"
                   loading="lazy"
                   decoding="async"
