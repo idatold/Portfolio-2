@@ -4,8 +4,9 @@ export default function TypewriterHeading({
   text,
   as: Tag = "h1",
   start = false,
-  startDelayMs = 450,   // snappier start
-  charDelayMs = 95,     // slightly slower per-char
+  startDelayMs = 360,   // small pre-pause before first char
+  charDelayMs = 100,    // comfy base speed (parent can override)
+  endBlinkMs = 0,       // how long to keep caret blinking after finish
   className = "",
   onDone,
 }) {
@@ -17,31 +18,43 @@ export default function TypewriterHeading({
   );
 
   const [out, setOut] = useState("");
-  const [done, setDone] = useState(false);
+  const [typingDone, setTypingDone] = useState(false);
+  const [caretOn, setCaretOn] = useState(false); // caret visibility controller
 
-  // keep latest onDone without re-running the typing effect
+  // keep latest onDone without retriggering the effect
   const onDoneRef = useRef(onDone);
   useEffect(() => {
     onDoneRef.current = onDone;
   }, [onDone]);
 
+  // reset if the text changes
   useEffect(() => {
-    if (!start || done) return;
+    setOut("");
+    setTypingDone(false);
+    setCaretOn(false);
+  }, [text]);
+
+  useEffect(() => {
+    let tId;   // typing timer
+    let endId; // post-finish blink timer
+    let cancel = false;
 
     if (reduceMotion) {
       setOut(text);
-      setDone(true);
+      setTypingDone(true);
+      setCaretOn(false);
       onDoneRef.current?.();
-      return;
+      return () => {};
     }
 
-    let i = 0;
-    let cancel = false;
-    let tId; // <- plain JS
+    if (!start || typingDone) return () => {};
 
+    setCaretOn(true); // show caret as soon as we start
+
+    let i = 0;
     const isPauseChar = (ch) => /[.,!?;:]/.test(ch);
 
-    const scheduleNext = (delay) => {
+    const tick = (delay) => {
       tId = setTimeout(() => {
         if (cancel) return;
 
@@ -49,40 +62,46 @@ export default function TypewriterHeading({
         setOut(text.slice(0, i));
 
         if (i >= text.length) {
-          setDone(true);
+          setTypingDone(true);
           onDoneRef.current?.();
+
+          // keep caret for a couple of blinks if requested, then hide
+          if (endBlinkMs > 0) {
+            endId = setTimeout(() => setCaretOn(false), endBlinkMs);
+          } else {
+            setCaretOn(false);
+          }
           return;
         }
 
-        // base speed
-        let nextDelay = charDelayMs;
+        // steady base + tiny, human jitter
+        const jitter = Math.floor(Math.random() * 31) - 10; // -10..+20ms
+        let next = Math.max(60, charDelayMs + jitter);
 
-        // gentle ease-out near the end so it doesn't sprint
-        const progress = i / text.length; // 0 → 1
-        nextDelay *= 0.9 + progress * 0.35; // up to ~35% more delay by the end
+        // small breath after punctuation (kept subtle)
+        if (isPauseChar(text[i - 1])) next += 100;
 
-        // micro-pause after punctuation for readability
-        if (isPauseChar(text[i - 1])) nextDelay += 220;
-
-        scheduleNext(nextDelay);
+        tick(next);
       }, delay);
     };
 
-    // start after trimmed initial delay
-    scheduleNext(startDelayMs);
+    tick(startDelayMs);
 
     return () => {
       cancel = true;
       if (tId) clearTimeout(tId);
+      if (endId) clearTimeout(endId);
     };
-    // deps intentionally exclude onDone to avoid restarts
-  }, [start, text, charDelayMs, startDelayMs, reduceMotion, done]);
+  }, [start, text, charDelayMs, startDelayMs, reduceMotion, endBlinkMs, typingDone]);
+
+  // caret shows while typing or during the end-blink hold
+  const showCaret = !reduceMotion && caretOn;
 
   return (
     <Tag className={className} aria-label={text}>
       <span aria-hidden="true">
         {out}
-        {!reduceMotion && !done ? <span className="type-caret" /> : null}
+        {showCaret ? <span className="type-caret" /> : null}
       </span>
       <span className="sr-only">{text}</span>
     </Tag>
