@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 import SideFooter from "./components/SideFooter";
 import Home from "./routes/Home";
-import Starfield from "./components/Starfield";
+import Starfield from "./components/StarField";
 
 export default function App() {
   return (
