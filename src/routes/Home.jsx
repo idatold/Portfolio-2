@@ -59,11 +59,22 @@ export default function Home() {
   }, [paragraphVisible]);
 
   return (
-    <section className="mx-auto max-w-[1100px] px-8 py-10">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch rounded-2xl p-6 lg:p-8 ring-1 ring-white/15 backdrop-blur-sm">
+    <section className="relative z-[1] mx-auto max-w-[1100px] px-8 py-10">
+      <div
+        className="
+          grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch
+          rounded-2xl p-6 lg:p-8
+          ring-1 ring-black/10 dark:ring-white/20
+          bg-white/25 dark:bg-white/5
+          backdrop-blur-xl
+          shadow-[inset_0_1px_1px_rgba(255,255,255,0.3),_0_8px_32px_rgba(0,0,0,0.2)]
+          border border-white/30 dark:border-white/10
+          transition-all duration-700
+        "
+      >
         {/* Left: polaroid — desktop only */}
         <div className="order-2 lg:order-1 lg:h-full hidden lg:flex items-center justify-center">
-          <div className="relative w-full max-w-[320px] bg-white/90 dark:bg-white/10 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10">
+          <div className="relative w-full max-w-[320px] bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
             <img
               src={idaMain}
               alt="Ida smiling on a boardwalk"
@@ -76,7 +87,15 @@ export default function Home() {
 
         {/* Right: text stack (and mobile image inline) */}
         <div className="order-1 lg:order-2 lg:h-full flex">
-          <div className="flex flex-col justify-center gap-6 sm:gap-8 w-full max-w-prose">
+          <div
+            className="
+              flex flex-col justify-center gap-6 sm:gap-8
+              w-full max-w-prose
+              items-center lg:items-start
+              text-center lg:text-left
+              mx-auto lg:mx-0
+            "
+          >
             {/* H1 — a bit faster, no post-blink (prevents double caret) */}
             <TypewriterHeading
               as="h1"
@@ -90,8 +109,8 @@ export default function Home() {
             />
 
             {/* Mobile-only polaroid between H1 and paragraph */}
-            <div className="lg:hidden">
-              <div className="relative w-full max-w-[320px] bg-white/90 dark:bg-white/10 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10">
+            <div className="lg:hidden w-full">
+              <div className="relative w-full max-w-[320px] mx-auto bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
                 <img
                   src={idaMain}
                   alt="Ida smiling on a boardwalk"
@@ -105,7 +124,7 @@ export default function Home() {
             {/* Paragraph — static on mobile; fades only on lg+ */}
             <p
               className={[
-                "max-w-prose",
+                "max-w-prose mx-auto lg:mx-0",
                 "opacity-100",
                 "lg:transition-opacity lg:duration-700",
                 h1Done ? "lg:opacity-100" : "lg:opacity-0",

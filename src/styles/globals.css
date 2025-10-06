@@ -133,3 +133,92 @@
 @media (prefers-reduced-motion: reduce) {
   .type-caret { animation: none; }
 }
+/* ================================
+   REACT STARFIELD (both themes)
+   ================================ */
+@keyframes ida-star-twinkle-1 { 0%,100%{opacity:0.9} 50%{opacity:0.3} }
+@keyframes ida-star-twinkle-2 { 0%,100%{opacity:0.85} 40%{opacity:0.25} 70%{opacity:1} }
+@keyframes ida-star-twinkle-3 { 0%,100%{opacity:0.8} 30%{opacity:0.35} 60%{opacity:0.95} }
+@keyframes ida-star-twinkle-4 { 0%,100%{opacity:0.9} 50%{opacity:0.1} }
+@keyframes ida-star-twinkle-5 { 0%,100%{opacity:0.95} 45%{opacity:0.2} }
+@keyframes ida-star-twinkle-6 { 0%,100%{opacity:0.9} 55%{opacity:0.15} }
+
+.ida-starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0; /* content goes above */
+}
+
+.ida-star {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;        /* white stars; shows on both themes */
+  box-shadow: 0 0 2px rgba(255,255,255,0.35);
+  will-change: opacity;
+}
+
+/* twinkle bands (like the CodePen classes) */
+.ida-star.band1 { animation: ida-star-twinkle-1 3s linear 1s infinite alternate; }
+.ida-star.band2 { animation: ida-star-twinkle-2 4s linear 0s infinite alternate; }
+.ida-star.band3 { animation: ida-star-twinkle-3 3.5s linear .5s infinite alternate; }
+.ida-star.band4 { animation: ida-star-twinkle-4 1.25s linear 1.5s infinite alternate; }
+.ida-star.band5 { animation: ida-star-twinkle-5 4s linear 2s infinite alternate; }
+.ida-star.band6 { animation: ida-star-twinkle-6 2.5s linear 1s infinite alternate; }
+
+/* motion-safe */
+@media (prefers-reduced-motion: reduce) {
+  .ida-star { animation: none !important; opacity: 0.8 !important; }
+}
+
+
+/* =========================================
+   SEMI-GLASS CARD (light & dark variants)
+   ========================================= */
+.glass-card {
+  /* fallback for older browsers */
+  background: rgba(255, 255, 255, 0.36);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* darker + crisper in dark mode */
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* nicer color interpolation where supported */
+@supports (background: color-mix(in oklab, white 36%, transparent)) {
+  .glass-card {
+    background: color-mix(in oklab, white 36%, transparent);
+  }
+  .dark .glass-card {
+    background: color-mix(in oklab, white 10%, transparent);
+  }
+}
+
+
+/* =========================================
+   SEMI-GLASS CARD (light & dark variants)
+   ========================================= */
+.glass-card {
+  /* fallback for older browsers */
+  background: rgba(255, 255, 255, 0.36);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* darker + crisper in dark mode */
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* nicer color interpolation where supported */
+@supports (background: color-mix(in oklab, white 36%, transparent)) {
+  .glass-card {
+    background: color-mix(in oklab, white 36%, transparent);
+  }
+  .dark .glass-card {
+    background: color-mix(in oklab, white 10%, transparent);
+  }
+}
