@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 
 export default function ProjectsCarousel({ projects = [] }) {
   const trackRef = useRef(null);
@@ -63,9 +62,7 @@ export default function ProjectsCarousel({ projects = [] }) {
     >
       <h2 className="text-center text-2xl sm:text-3xl mb-4 sm:mb-6">Projects</h2>
 
-      {/* Rounded container */}
       <div className="relative isolate rounded-2xl sm:rounded-3xl overflow-hidden bg-transparent">
-        {/* Symmetric edge fades (visual only) */}
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 left-0 w-6 bg-gradient-to-r from-black/10 to-transparent dark:from-black/25"
@@ -80,16 +77,11 @@ export default function ProjectsCarousel({ projects = [] }) {
           ref={trackRef}
           className="
             flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory
-            pt-3 pb-2
-            px-6
-            bg-transparent
+            pt-3 pb-2 px-6 bg-transparent
             [-ms-overflow-style:none] [scrollbar-width:none]
             [scroll-snap-stop:always]
           "
-          style={{
-            scrollbarWidth: "none",
-            scrollPaddingInline: "24px", // matches px-6 for clean edges
-          }}
+          style={{ scrollbarWidth: "none", scrollPaddingInline: "24px" }}
         >
           <style>{`#${id}::-webkit-scrollbar{display:none}`}</style>
 
@@ -101,7 +93,7 @@ export default function ProjectsCarousel({ projects = [] }) {
                 ? p.stack.split(",").map((s) => s.trim()).filter(Boolean)
                 : [];
 
-            // Internal route target (slug preferred; fallback to id)
+            // internal path using slug (fallback to id)
             const to = p.to ?? (p.slug ? `/projects/${p.slug}` : `/projects/${p.id}`);
 
             return (
@@ -130,9 +122,9 @@ export default function ProjectsCarousel({ projects = [] }) {
                     cursor-pointer
                   "
                 >
-                  {/* Full-card overlay Link so the WHOLE card is clickable */}
-                  <Link
-                    to={to}
+                  {/* Full-card overlay anchor so the WHOLE card navigates */}
+                  <a
+                    href={to}
                     aria-label={`Open project: ${p.title}`}
                     className="
                       peer absolute inset-0 z-10
@@ -141,7 +133,7 @@ export default function ProjectsCarousel({ projects = [] }) {
                     "
                   >
                     <span className="sr-only">Open project</span>
-                  </Link>
+                  </a>
 
                   {/* Image */}
                   <div className="relative rounded-lg overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
@@ -187,7 +179,7 @@ export default function ProjectsCarousel({ projects = [] }) {
                       <p>{p.line2}</p>
                     </div>
 
-                    {/* Visual pill only; real navigation is the overlay Link */}
+                    {/* Visual pill only; the overlay <a> handles navigation */}
                     <div className="mt-4 self-end">
                       <span
                         aria-hidden="true"
