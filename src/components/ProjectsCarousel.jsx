@@ -1,4 +1,6 @@
+// src/components/ProjectsCarousel.jsx
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ProjectsCarousel({ projects = [] }) {
   const trackRef = useRef(null);
@@ -93,8 +95,8 @@ export default function ProjectsCarousel({ projects = [] }) {
                 ? p.stack.split(",").map((s) => s.trim()).filter(Boolean)
                 : [];
 
-            // internal path using slug (fallback to id)
-            const to = p.to ?? (p.slug ? `/projects/${p.slug}` : `/projects/${p.id}`);
+            // internal path using slug (fallback to id) -> ARCHIVE
+            const to = p.to ?? (p.slug ? `/archive/${p.slug}` : `/archive/${p.id}`);
 
             return (
               <li
@@ -122,9 +124,9 @@ export default function ProjectsCarousel({ projects = [] }) {
                     cursor-pointer
                   "
                 >
-                  {/* Full-card overlay anchor so the WHOLE card navigates */}
-                  <a
-                    href={to}
+                  {/* Full-card overlay link so the WHOLE card navigates (SPA) */}
+                  <Link
+                    to={to}
                     aria-label={`Open project: ${p.title}`}
                     className="
                       peer absolute inset-0 z-10
@@ -133,7 +135,7 @@ export default function ProjectsCarousel({ projects = [] }) {
                     "
                   >
                     <span className="sr-only">Open project</span>
-                  </a>
+                  </Link>
 
                   {/* Image */}
                   <div className="relative rounded-lg overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
@@ -179,7 +181,7 @@ export default function ProjectsCarousel({ projects = [] }) {
                       <p>{p.line2}</p>
                     </div>
 
-                    {/* Visual pill only; the overlay <a> handles navigation */}
+                    {/* Visual pill only; the overlay Link handles navigation */}
                     <div className="mt-4 self-end">
                       <span
                         aria-hidden="true"

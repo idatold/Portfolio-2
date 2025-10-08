@@ -1,11 +1,13 @@
+// src/components/Header.jsx
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import MobileMenu from "./MobileMenu";
 
 const LINKS = [
-  { href: "#about", label: "About" },
-  { href: "#archive", label: "Archive" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/archive", label: "Archive" }, // route
+  { href: "/#contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -13,26 +15,35 @@ export default function Header() {
   const burgerRef = useRef(null);
 
   return (
-    <header className="sticky top-0 z-50 bg-transparent">
+    // not sticky
+    <header className="relative z-[1] bg-transparent">
       <div className="mx-auto max-w-6xl px-6 py-5 grid grid-cols-[1fr_auto_1fr] items-center">
-        {/* left spacer (no brand) */}
         <div />
 
-        {/* DESKTOP NAV — extra spacing between links */}
-<nav className="hidden md:flex justify-self-center items-center uppercase tracking-[0.2em] text-sm gap-x-[6rem] lg:gap-x-[8rem] xl:gap-x-[10rem] 2xl:gap-x-[12rem]">
-  {LINKS.map((l) => (
-    <a
-      key={l.href}
-      href={l.href}
-      className="plop no-underline cursor-pointer select-none opacity-70 dark:opacity-80 hover:opacity-100 transition-opacity glow-link"
-    >
-      {l.label}
-    </a>
-  ))}
-</nav>
+        {/* DESKTOP NAV */}
+        <nav className="hidden md:flex justify-self-center items-center uppercase tracking-[0.2em] text-sm gap-x-[6rem] lg:gap-x-[8rem] xl:gap-x-[10rem] 2xl:gap-x-[12rem]">
+          {LINKS.map((l) =>
+            l.href.startsWith("/archive") ? (
+              <Link
+                key={l.href}
+                to={l.href}
+                className="plop no-underline cursor-pointer select-none opacity-70 dark:opacity-80 hover:opacity-100 transition-opacity glow-link"
+              >
+                {l.label}
+              </Link>
+            ) : (
+              <a
+                key={l.href}
+                href={l.href}
+                className="plop no-underline cursor-pointer select-none opacity-70 dark:opacity-80 hover:opacity-100 transition-opacity glow-link"
+              >
+                {l.label}
+              </a>
+            )
+          )}
+        </nav>
 
-
-        {/* RIGHT: theme toggle + hamburger (hamburger only on mobile) */}
+        {/* RIGHT: theme toggle + hamburger */}
         <div className="justify-self-end flex items-center gap-4">
           <ThemeToggle />
           <button
@@ -46,9 +57,9 @@ export default function Header() {
           >
             <span className="sr-only">Menu</span>
             <div className="space-y-1.5">
-              <span className="block h-0.5 w-5 bg-current"></span>
-              <span className="block h-0.5 w-5 bg-current"></span>
-              <span className="block h-0.5 w-5 bg-current"></span>
+              <span className="block h-0.5 w-5 bg-current" />
+              <span className="block h-0.5 w-5 bg-current" />
+              <span className="block h-0.5 w-5 bg-current" />
             </div>
           </button>
         </div>
