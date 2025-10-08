@@ -1,14 +1,8 @@
 import { useMemo } from "react";
 
-/**
- * Global starfield layer
- * - Fixed to viewport, sits under all content (z-index: 0)
- * - Renders random white dots with staggered twinkle bands
- * - Keeps your site gradient by painting it behind the stars
- */
 export default function Starfield({
   count = 420,
-  sizes = [1, 1, 1, 1, 2, 2, 3, 4], // more 1px stars for a classy look
+  sizes = [1, 1, 1, 1, 2, 2, 3, 4],
 }) {
   const stars = useMemo(() => {
     const bands = ["band1", "band2", "band3", "band4", "band5", "band6"];
@@ -25,7 +19,10 @@ export default function Starfield({
     <div
       className="ida-starfield"
       style={{
-        // Keep your CSS-variable gradient behind the stars
+        position: "fixed",
+        inset: 0,
+        zIndex: -1,          // <-- always under page content
+        pointerEvents: "none",
         background: `linear-gradient(
           180deg,
           var(--grad-start) 0%,
@@ -40,10 +37,14 @@ export default function Starfield({
           key={s.id}
           className={`ida-star ${s.band}`}
           style={{
+            position: "absolute",
             top: `${s.top}%`,
             left: `${s.left}%`,
             width: `${s.size}px`,
             height: `${s.size}px`,
+            borderRadius: "50%",
+            background: "#fff",
+            boxShadow: "0 0 2px rgba(255,255,255,.35)",
           }}
         />
       ))}
