@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import SideFooter from "./components/SideFooter";
-import Starfield from "./components/StarField";
+import Starfield from "./components/StarField.jsx";
 import Home from "./routes/Home";
 import Archive from "./routes/Archive";
 import ProjectDetail from "./routes/ProjectDetail";
