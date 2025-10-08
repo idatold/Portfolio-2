@@ -1,6 +1,6 @@
 export default function SideFooter({
-  github = "https://github.com/",       // ← swap to your profile
-  linkedin = "https://www.linkedin.com/", // ← swap to your profile
+  github = "https://github.com/idatold",       // ← swap to your profile
+  linkedin = "https://www.linkedin.com/in/ida-charlotte-loriann-toldn%C3%A6s-920190117/", // ← swap to your profile
   year = 2025,
 }) {
   return (

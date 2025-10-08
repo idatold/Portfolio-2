@@ -1,4 +1,6 @@
+// src/components/MobileMenu.jsx
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 /**
  * MobileMenu
@@ -38,6 +40,9 @@ export default function MobileMenu({
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
+    // ⬇️ capture the current node so cleanup uses a stable reference
+    const returnTo = returnFocusRef?.current;
+
     const onKey = (e) => {
       if (e.key === "Escape") {
         e.preventDefault();
@@ -65,21 +70,21 @@ export default function MobileMenu({
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
-      // return focus to the hamburger
-      if (returnFocusRef?.current) {
-        returnFocusRef.current.focus?.();
-      }
+      // return focus to the hamburger (stable node)
+      returnTo?.focus?.();
     };
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Treat plain "/" routes (no hash) as SPA routes; keep hashes as anchors
+  const isRoute = (href) => href.startsWith("/") && !href.includes("#");
+
   return (
     <div
-      className={`md:hidden ${
-        open ? "pointer-events-auto" : "pointer-events-none"
-      }`}
+      className={`md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
     >
       {/* overlay (click to close) */}
       <button
+        type="button"
         aria-hidden="true"
         onClick={onClose}
         className={`fixed inset-0 transition-opacity duration-200 ${
@@ -104,13 +109,23 @@ export default function MobileMenu({
         <ul className="flex flex-col gap-3 uppercase tracking-[0.2em] text-sm">
           {links.map((l) => (
             <li key={l.href}>
-              <a
-                href={l.href}
-                onClick={onClose}
-                className="block py-2 px-2 plop no-underline cursor-pointer select-none"
-              >
-                {l.label}
-              </a>
+              {isRoute(l.href) ? (
+                <Link
+                  to={l.href}
+                  onClick={onClose}
+                  className="block py-2 px-2 plop no-underline cursor-pointer select-none"
+                >
+                  {l.label}
+                </Link>
+              ) : (
+                <a
+                  href={l.href}
+                  onClick={onClose}
+                  className="block py-2 px-2 plop no-underline cursor-pointer select-none"
+                >
+                  {l.label}
+                </a>
+              )}
             </li>
           ))}
         </ul>
