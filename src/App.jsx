@@ -2,10 +2,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import SideFooter from "./components/SideFooter.jsx";
-import Starfield from "./components/Starfield.jsx"; // make sure this matches your filename
+
+import Starfield from "./components/StarField.jsx"; // big F
+
 import Home from "./routes/Home.jsx";
 import Archive from "./routes/Archive.jsx";
 import ProjectDetail from "./routes/ProjectDetail.jsx";
+import About from "./routes/About.jsx";
 import NotFound from "./routes/NotFound.jsx";
 
 export default function App() {
@@ -22,6 +25,9 @@ export default function App() {
         >
           <Routes>
             <Route path="/" element={<Home />} />
+
+            {/* About */}
+            <Route path="/about" element={<About />} />
 
             {/* Archive index */}
             <Route path="/archive" element={<Archive />} />

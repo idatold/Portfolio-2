@@ -5,9 +5,9 @@ import ThemeToggle from "./ThemeToggle";
 import MobileMenu from "./MobileMenu";
 
 const LINKS = [
-  { href: "/#about", label: "About" },
+  { href: "/about", label: "About" },   // route
   { href: "/archive", label: "Archive" }, // route
-  { href: "/#contact", label: "Contact" },
+  { href: "/#contact", label: "Contact" }, // hash anchor
 ];
 
 export default function Header() {
@@ -23,7 +23,8 @@ export default function Header() {
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex justify-self-center items-center uppercase tracking-[0.2em] text-sm gap-x-[6rem] lg:gap-x-[8rem] xl:gap-x-[10rem] 2xl:gap-x-[12rem]">
           {LINKS.map((l) =>
-            l.href.startsWith("/archive") ? (
+            // Use <Link> for SPA routes (no hash), <a> for hash anchors.
+            l.href.startsWith("/") && !l.href.includes("#") ? (
               <Link
                 key={l.href}
                 to={l.href}
