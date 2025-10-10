@@ -8,7 +8,7 @@ import logo from "../assets/Idalogo.jpg"; // ← ensure casing matches your file
 const LINKS = [
   { href: "/about", label: "About" },
   { href: "/archive", label: "Archive" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/contact", label: "Contact" }, // CHANGED
 ];
 
 export default function Header() {

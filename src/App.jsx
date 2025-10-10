@@ -1,3 +1,4 @@
+// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import SideFooter from "./components/SideFooter.jsx";
@@ -7,6 +8,7 @@ import Archive from "./routes/Archive.jsx";
 import ProjectDetail from "./routes/ProjectDetail.jsx";
 import About from "./routes/About.jsx";
 import NotFound from "./routes/NotFound.jsx";
+import Contact from "./routes/Contact.jsx"; // ADDED
 
 export default function App() {
   return (
@@ -28,9 +30,9 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/archive" element={<Archive />} />
-            <Route path="/projects" element={<Archive />} />
             <Route path="/archive/:slug" element={<ProjectDetail />} />
             <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route path="/contact" element={<Contact />} /> {/* ADDED */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
