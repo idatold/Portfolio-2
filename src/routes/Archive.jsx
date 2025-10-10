@@ -1,10 +1,9 @@
-// src/routes/Archive.jsx
 import { Link } from "react-router-dom";
 import projects from "../data/projects";
 
 export default function Archive() {
   return (
-    <section className="glass-card rounded-2xl p-6 sm:p-8">
+    <section className="glass-card rounded-2xl p-6 sm:p-8 mt-6 sm:mt-8 lg:mt-10">
       <h1 className="font-['Permanent_Marker'] text-4xl mb-4">Archive</h1>
       <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((p) => (

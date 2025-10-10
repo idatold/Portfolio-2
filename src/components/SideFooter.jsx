@@ -1,12 +1,18 @@
+// src/components/SideFooter.jsx
 export default function SideFooter({
-  github = "https://github.com/idatold",       // ← swap to your profile
-  linkedin = "https://www.linkedin.com/in/ida-charlotte-loriann-toldn%C3%A6s-920190117/", // ← swap to your profile
+  github = "https://github.com/idatold",
+  linkedin = "https://www.linkedin.com/in/ida-charlotte-loriann-toldn%C3%A6s-920190117/",
   year = 2025,
 }) {
   return (
     <>
-      {/* Desktop/tablet: vertical rail on the left */}
-      <div className="hidden md:flex fixed inset-y-0 left-6 md:left-8 lg:left-10 xl:left-12 z-40 flex-col items-center justify-between py-10 bg-transparent">
+      {/* Desktop/tablet: vertical rail on the left (sticky/fixed) */}
+      <div
+        className="hidden md:flex fixed inset-y-0 left-6 md:left-8 lg:left-10 xl:left-12 z-40
+                   flex-col items-center justify-between py-10 bg-transparent"
+        role="contentinfo"
+        aria-label="Site footer"
+      >
         <a
           href={github}
           target="_blank"
@@ -41,8 +47,13 @@ export default function SideFooter({
         </span>
       </div>
 
-      {/* Mobile: simple bottom bar */}
-      <div className="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3 sm:gap-6 bg-transparent">
+      {/* Mobile: simple bar that scrolls with content (NOT fixed) */}
+      <footer
+        className="md:hidden relative z-10 mt-8 mb-6 flex items-center justify-center gap-3 sm:gap-6
+                   bg-transparent"
+        role="contentinfo"
+        aria-label="Site footer"
+      >
         <a
           href={github}
           target="_blank"
@@ -62,7 +73,7 @@ export default function SideFooter({
         <span className="select-none uppercase text-xs tracking-[0.1em] sm:tracking-[0.2em] whitespace-nowrap leading-none">
           © {year}
         </span>
-      </div>
+      </footer>
     </>
   );
 }

@@ -113,6 +113,14 @@
     text-shadow: 0 0 12px var(--text-link), 0 0 3px var(--text-link);
     opacity: 1;
   }
+/* Image/logo glow (matches .glow-link vibe) */
+.glow-orb:hover img {
+  filter: drop-shadow(0 0 12px var(--accent)) drop-shadow(0 0 3px var(--accent));
+}
+.dark .glow-orb:hover img {
+  filter: drop-shadow(0 0 12px var(--text-link)) drop-shadow(0 0 3px var(--text-link));
+}
+
 
   /* Typewriter caret */
   .type-caret {

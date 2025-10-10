@@ -2,14 +2,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
-/**
- * MobileMenu
- * Props:
- * - open: boolean
- * - onClose: () => void
- * - links: Array<{ href: string; label: string }>
- * - returnFocusRef?: React.RefObject<HTMLElement>  // the hamburger button
- */
 export default function MobileMenu({
   open = false,
   onClose,
@@ -18,13 +10,12 @@ export default function MobileMenu({
 }) {
   const panelRef = useRef(null);
 
-  // Focus helpers
   function getFocusable() {
     const node = panelRef.current;
     if (!node) return [];
     return Array.from(
       node.querySelectorAll(
-        'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])'
+        'button:not([disabled]),a[href],[tabindex]:not([tabindex="-1"])'
       )
     );
   }
@@ -33,14 +24,10 @@ export default function MobileMenu({
     first?.focus?.();
   }
 
-  // Esc to close, focus trap, body scroll lock, and return focus
   useEffect(() => {
     if (!open) return;
-
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
-    // ⬇️ capture the current node so cleanup uses a stable reference
     const returnTo = returnFocusRef?.current;
 
     const onKey = (e) => {
@@ -52,7 +39,6 @@ export default function MobileMenu({
         if (!items.length) return;
         const first = items[0];
         const last = items[items.length - 1];
-
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
@@ -64,71 +50,90 @@ export default function MobileMenu({
     };
 
     window.addEventListener("keydown", onKey);
-    // Focus after paint
     setTimeout(focusFirst, 0);
 
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
-      // return focus to the hamburger (stable node)
       returnTo?.focus?.();
     };
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Treat plain "/" routes (no hash) as SPA routes; keep hashes as anchors
   const isRoute = (href) => href.startsWith("/") && !href.includes("#");
 
   return (
-    <div
-      className={`md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}
-    >
-      {/* overlay (click to close) */}
+    <div className={`md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
+      {/* dim overlay */}
       <button
         type="button"
         aria-hidden="true"
         onClick={onClose}
         className={`fixed inset-0 transition-opacity duration-200 ${
           open ? "opacity-100" : "opacity-0"
-        }`}
+        } z-[90] bg-black/40`}
         tabIndex={-1}
       />
 
-      {/* floating panel */}
+      {/* centered wide panel (not full screen) */}
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"
         className={[
-          "absolute right-4 top-[calc(100%+8px)] min-w-[220px] rounded-2xl p-4",
+          "fixed top-[72px] left-3 right-3 mx-auto z-[100] isolate",
+          "w-[92vw] max-w-[520px] rounded-2xl p-4 sm:p-5",
           "backdrop-blur bg-black/20 dark:bg-white/10 ring-1 ring-white/15",
           "transition-all duration-200",
           open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1.5",
         ].join(" ")}
       >
-        <ul className="flex flex-col gap-3 uppercase tracking-[0.2em] text-sm">
-          {links.map((l) => (
-            <li key={l.href}>
-              {isRoute(l.href) ? (
-                <Link
-                  to={l.href}
-                  onClick={onClose}
-                  className="block py-2 px-2 plop no-underline cursor-pointer select-none"
-                >
-                  {l.label}
-                </Link>
-              ) : (
-                <a
-                  href={l.href}
-                  onClick={onClose}
-                  className="block py-2 px-2 plop no-underline cursor-pointer select-none"
-                >
-                  {l.label}
-                </a>
-              )}
-            </li>
-          ))}
-        </ul>
+        {/* close button */}
+        <div className="flex justify-end">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close menu"
+            className="h-9 w-9 inline-flex items-center justify-center rounded-lg
+                       border border-white/20 bg-white/10 backdrop-blur
+                       ring-1 ring-black/5 dark:ring-white/10
+                       hover:border-[var(--accent)] transition
+                       focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+                       cursor-pointer"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" className="w-5 h-5">
+              <path fill="currentColor" d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.3 19.71 2.89 18.3 9.17 12 2.89 5.71 4.3 4.29 10.59 10.6l6.3-6.31z"/>
+            </svg>
+          </button>
+        </div>
+
+      {/* nav list (centered) */}
+<div className="mt-2 flex justify-center">
+  <ul className="flex flex-col items-center gap-4 uppercase tracking-[0.2em] text-sm text-center">
+    {links.map((l) => (
+      <li key={l.href}>
+        {isRoute(l.href) ? (
+          <Link
+            to={l.href}
+            onClick={onClose}
+            className="inline-block py-3 px-2 plop no-underline cursor-pointer select-none"
+          >
+            {l.label}
+          </Link>
+        ) : (
+          <a
+            href={l.href}
+            onClick={onClose}
+            className="inline-block py-3 px-2 plop no-underline cursor-pointer select-none"
+          >
+            {l.label}
+          </a>
+        )}
+      </li>
+    ))}
+  </ul>
+</div>
+
       </div>
     </div>
   );
