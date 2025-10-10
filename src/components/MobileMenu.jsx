@@ -1,6 +1,7 @@
 // src/components/MobileMenu.jsx
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 export default function MobileMenu({
   open = false,
@@ -62,7 +63,11 @@ export default function MobileMenu({
   const isRoute = (href) => href.startsWith("/") && !href.includes("#");
 
   return (
-    <div className={`md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
+    <div
+      className={`md:hidden ${
+        open ? "pointer-events-auto" : "pointer-events-none"
+      }`}
+    >
       {/* dim overlay */}
       <button
         type="button"
@@ -102,38 +107,48 @@ export default function MobileMenu({
                        cursor-pointer"
           >
             <svg viewBox="0 0 24 24" aria-hidden="true" className="w-5 h-5">
-              <path fill="currentColor" d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.3 19.71 2.89 18.3 9.17 12 2.89 5.71 4.3 4.29 10.59 10.6l6.3-6.31z"/>
+              <path
+                fill="currentColor"
+                d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.3 19.71 2.89 18.3 9.17 12 2.89 5.71 4.3 4.29 10.59 10.6l6.3-6.31z"
+              />
             </svg>
           </button>
         </div>
 
-      {/* nav list (centered) */}
-<div className="mt-2 flex justify-center">
-  <ul className="flex flex-col items-center gap-4 uppercase tracking-[0.2em] text-sm text-center">
-    {links.map((l) => (
-      <li key={l.href}>
-        {isRoute(l.href) ? (
-          <Link
-            to={l.href}
-            onClick={onClose}
-            className="inline-block py-3 px-2 plop no-underline cursor-pointer select-none"
-          >
-            {l.label}
-          </Link>
-        ) : (
-          <a
-            href={l.href}
-            onClick={onClose}
-            className="inline-block py-3 px-2 plop no-underline cursor-pointer select-none"
-          >
-            {l.label}
-          </a>
-        )}
-      </li>
-    ))}
-  </ul>
-</div>
+        {/* nav list (centered) */}
+        <div className="mt-2 flex justify-center">
+          <ul className="flex flex-col items-center gap-4 uppercase tracking-[0.2em] text-sm text-center">
+            {links.map((l) => (
+              <li key={l.href}>
+                {isRoute(l.href) ? (
+                  <Link
+                    to={l.href}
+                    onClick={onClose}
+                    className="inline-block py-3 px-2 plop no-underline cursor-pointer select-none"
+                  >
+                    {l.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={l.href}
+                    onClick={onClose}
+                    className="inline-block py-3 px-2 plop no-underline cursor-pointer select-none"
+                  >
+                    {l.label}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
 
+        {/* divider + theme toggle row */}
+        <div className="mt-4 pt-4 border-t border-white/15 flex items-center justify-center gap-3">
+          <span className="text-xs uppercase tracking-[0.2em] opacity-70">
+            Theme
+          </span>
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   );

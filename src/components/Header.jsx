@@ -19,13 +19,8 @@ export default function Header() {
     // not sticky
     <header className="relative z-[1] bg-transparent">
       <div className="mx-auto max-w-6xl px-6 py-5">
-        {/* MOBILE BAR: absolute-centered logo, controls pinned left/right */}
+        {/* MOBILE BAR: absolute-centered logo, burger on right (toggle moved into menu) */}
         <div className="relative h-14 md:hidden">
-          {/* Left: theme toggle */}
-          <div className="absolute inset-y-0 left-0 flex items-center">
-            <ThemeToggle />
-          </div>
-
           {/* Center: logo (perfectly centered) */}
           <Link
             to="/"
@@ -110,8 +105,8 @@ export default function Header() {
             )}
           </nav>
 
-          {/* RIGHT: theme toggle */}
-          <div className="justify-self-end flex items-center gap-4">
+          {/* RIGHT: theme toggle (desktop only) */}
+          <div className="justify-self-end hidden md:flex items-center gap-4">
             <ThemeToggle />
           </div>
         </div>
