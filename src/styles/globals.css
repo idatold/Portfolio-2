@@ -1,3 +1,4 @@
+/* src/styles/globals.css */
 @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Permanent+Marker&display=swap");
 @import "tailwindcss";
 
@@ -42,6 +43,10 @@
 @layer base {
   html { @apply font-sans; }
 
+  /* Keep browser UI in sync with your theme */
+  :root { color-scheme: light; }
+  .dark { color-scheme: dark; }
+
   body {
     color: var(--text-body);
     background: linear-gradient(
@@ -64,6 +69,9 @@
     text-decoration: none;
   }
   a:hover { text-decoration: underline; }
+
+  /* NEW: make native controls inherit the page theme palette */
+  input, textarea, select { color-scheme: inherit; }
 }
 
 /* ================================
@@ -72,6 +80,9 @@
 @keyframes ida-caret-blink {
   0%,49% { opacity: 1; }
   50%,100% { opacity: 0; }
+
+
+  
 }
 
 /* ================================
@@ -113,14 +124,13 @@
     text-shadow: 0 0 12px var(--text-link), 0 0 3px var(--text-link);
     opacity: 1;
   }
-/* Image/logo glow (matches .glow-link vibe) */
-.glow-orb:hover img {
-  filter: drop-shadow(0 0 12px var(--accent)) drop-shadow(0 0 3px var(--accent));
-}
-.dark .glow-orb:hover img {
-  filter: drop-shadow(0 0 12px var(--text-link)) drop-shadow(0 0 3px var(--text-link));
-}
-
+  /* Image/logo glow (matches .glow-link vibe) */
+  .glow-orb:hover img {
+    filter: drop-shadow(0 0 12px var(--accent)) drop-shadow(0 0 3px var(--accent));
+  }
+  .dark .glow-orb:hover img {
+    filter: drop-shadow(0 0 12px var(--text-link)) drop-shadow(0 0 3px var(--text-link));
+  }
 
   /* Typewriter caret */
   .type-caret {
@@ -209,3 +219,33 @@
   }
 }
 
+/* Autofill theming (Chrome/WebKit) */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: inherit;
+  transition: background-color 9999s ease-out, color 9999s ease-out;
+  box-shadow: 0 0 0px 1000px transparent inset;
+}
+
+.dark input:-webkit-autofill,
+.dark textarea:-webkit-autofill,
+.dark select:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-body);
+}
+
+/* NEW: force native controls to render dark when site is dark */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: color-mix(in oklab, white 10%, transparent) !important;
+  color: var(--text-body) !important;
+  border-color: color-mix(in oklab, white 25%, transparent) !important;
+  -webkit-text-fill-color: var(--text-body);
+  background-clip: padding-box;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: color-mix(in oklab, white 70%, transparent);
+}

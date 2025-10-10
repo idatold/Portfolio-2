@@ -1,4 +1,3 @@
-// src/components/SideFooter.jsx
 export default function SideFooter({
   github = "https://github.com/idatold",
   linkedin = "https://www.linkedin.com/in/ida-charlotte-loriann-toldn%C3%A6s-920190117/",

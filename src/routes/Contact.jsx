@@ -1,4 +1,3 @@
-// src/routes/Contact.jsx
 import { useRef, useState } from "react";
 
 const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
@@ -68,8 +67,7 @@ export default function Contact() {
         className="grid grid-cols-1 gap-5 sm:gap-7 lg:gap-8 items-stretch isolate
                    rounded-lg sm:rounded-2xl p-3 sm:p-6 lg:p-8
                    ring-1 ring-black/10 dark:ring-white/20
-                   bg-white/25 dark:bg-white/5
-                   backdrop-blur-xl
+                   glass-card backdrop-blur-xl
                    shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]
                    border border-white/30 dark:border-white/10"
       >
@@ -105,7 +103,11 @@ export default function Contact() {
                 required
                 autoComplete="name"
                 placeholder="Your name"
-                className="rounded-lg px-3 py-2 ring-1 ring-black/10 dark:ring-white/20 bg-white/70 dark:bg-white/10 backdrop-blur
+                className="rounded-lg px-3 py-2
+                           ring-1 ring-black/10 dark:ring-white/15
+                           bg-white/60 dark:bg-white/5
+                           dark:text-white dark:placeholder-white/70 placeholder:opacity-60
+                           backdrop-blur
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               />
             </div>
@@ -122,7 +124,11 @@ export default function Contact() {
                 required
                 autoComplete="email"
                 placeholder="Your email"
-                className="rounded-lg px-3 py-2 ring-1 ring-black/10 dark:ring-white/20 bg-white/70 dark:bg-white/10 backdrop-blur
+                className="rounded-lg px-3 py-2
+                           ring-1 ring-black/10 dark:ring-white/15
+                           bg-white/60 dark:bg-white/5
+                           dark:text-white dark:placeholder-white/70 placeholder:opacity-60
+                           backdrop-blur
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               />
             </div>
@@ -138,7 +144,11 @@ export default function Contact() {
                 required
                 rows={6}
                 placeholder="Your message"
-                className="rounded-lg px-3 py-2 ring-1 ring-black/10 dark:ring-white/20 bg-white/70 dark:bg-white/10 backdrop-blur
+                className="rounded-lg px-3 py-2
+                           ring-1 ring-black/10 dark:ring-white/15
+                           bg-white/60 dark:bg-white/5
+                           dark:text-white dark:placeholder-white/70 placeholder:opacity-60
+                           backdrop-blur
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] resize-y"
               />
             </div>

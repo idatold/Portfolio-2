@@ -1,3 +1,4 @@
+// src/routes/Home.jsx
 import { useEffect, useMemo, useState } from "react";
 import TypewriterHeading from "../components/TypewriterHeading";
 import idaMain from "../assets/idamain.jpg";
@@ -12,7 +13,6 @@ export default function Home() {
     []
   );
 
-  // H1 typing control
   const [startH1, setStartH1] = useState(false);
   const [h1Done, setH1Done] = useState(false);
 
@@ -74,8 +74,7 @@ export default function Home() {
             grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-7 lg:gap-8 items-stretch isolate
             rounded-lg sm:rounded-2xl p-3 sm:p-6 lg:p-8
             ring-1 ring-black/10 dark:ring-white/20
-            bg-white/25 dark:bg-white/5
-            backdrop-blur-xl
+            glass-card backdrop-blur-xl
             shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]
             border border-white/30 dark:border-white/10
             transition-all duration-700
@@ -141,9 +140,9 @@ export default function Home() {
                   "motion-reduce:lg:transition-none",
                 ].join(" ")}
               >
-                As a frontend developer, I combine a love for problem-solving with an
-                eye for design. I believe websites should be functional, but also
-                spark a bit of joy when people use them.
+                As a frontend developer, I combine a love for problem-solving
+                with an eye for design. I believe websites should be functional,
+                but also spark a bit of joy when people use them.
               </p>
 
               {/* H2 */}
