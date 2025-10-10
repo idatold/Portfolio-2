@@ -63,7 +63,11 @@ export default function MobileMenu({
   const isRoute = (href) => href.startsWith("/") && !href.includes("#");
 
   return (
-    <div className={`md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
+    <div
+      className={`md:hidden ${
+        open ? "pointer-events-auto" : "pointer-events-none"
+      }`}
+    >
       {/* dim overlay */}
       <button
         type="button"
@@ -140,7 +144,9 @@ export default function MobileMenu({
 
         {/* divider + theme toggle row */}
         <div className="mt-4 pt-4 border-t border-white/15 flex items-center justify-center gap-3">
-          <span className="text-xs uppercase tracking-[0.2em] opacity-70">Theme</span>
+          <span className="text-xs uppercase tracking-[0.2em] opacity-70">
+            Theme
+          </span>
           <ThemeToggle />
         </div>
       </div>
