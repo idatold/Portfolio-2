@@ -8,7 +8,7 @@ if (!ACCESS_KEY) {
 
 export default function Contact() {
   const statusRef = useRef(null);
-  const [status, setStatus] = useState("");      // message text
+  const [status, setStatus] = useState(""); // message text
   const [sending, setSending] = useState(false); // disable button while sending
 
   async function onSubmit(e) {
@@ -48,7 +48,9 @@ export default function Contact() {
         statusRef.current?.focus?.();
       }
     } catch (err) {
-      console.error(err);
+      if (import.meta.env.DEV) {
+        console.error("Web3Forms submit failed:", err);
+      }
       setStatus("Network error. Please check your connection and try again.");
       statusRef.current?.focus?.();
     } finally {
