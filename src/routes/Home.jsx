@@ -65,7 +65,8 @@ export default function Home() {
       {/* Hero */}
       <section
         className="relative z-10 mx-auto max-w-[1100px]
-          px-2 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10 mt-22
+          px-2 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10
+          mt-12 sm:mt-16 lg:mt-22
           overflow-visible"
       >
         <div
@@ -122,7 +123,7 @@ export default function Home() {
                 <div className="relative w-full max-w-[320px] mx-auto bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
                   <img
                     src={idaMain}
-                    alt="Ida smiling on a boardwalk"
+                    alt="Ida on a rooftop"
                     className="block w-full aspect-[4/5] object-cover [filter:grayscale(100%)]"
                     loading="lazy"
                     decoding="async"

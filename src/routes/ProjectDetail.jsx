@@ -1,7 +1,7 @@
-// src/routes/ProjectDetail.jsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import projects from "../data/projects";
+import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -57,17 +57,17 @@ export default function ProjectDetail() {
   }
 
   return (
-    <article className="space-y-8">
+    <article className="mt-6 sm:mt-8 lg:mt-10 space-y-8">
       {/* Breadcrumbs */}
-      <nav aria-label="Breadcrumb" className="text-sm opacity-80">
-        <ol className="flex items-center gap-2 flex-wrap">
-          <li><Link to="/" className="glow-link">Home</Link></li>
-          <li aria-hidden="true">›</li>
-          <li><Link to="/archive" className="glow-link">Archive</Link></li>
-          <li aria-hidden="true">›</li>
-          <li aria-current="page" className="truncate max-w-[60ch]">{project.title}</li>
-        </ol>
-      </nav>
+      <Breadcrumbs
+        className="text-sm opacity-80"
+        separator="›"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Archive", href: "/archive" },
+          { label: project.title }, // current page
+        ]}
+      />
 
       {/* Header card */}
       <header className="glass-card rounded-2xl p-6 sm:p-8 border border-white/15 ring-1 ring-black/5 dark:ring-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.18)]">
