@@ -4,9 +4,9 @@ export default function TypewriterHeading({
   text,
   as: Tag = "h1",
   start = false,
-  startDelayMs = 360,   // small pre-pause before first char
-  charDelayMs = 100,    // comfy base speed (parent can override)
-  endBlinkMs = 0,       // how long to keep caret blinking after finish
+  startDelayMs = 360, // small pre-pause before first char
+  charDelayMs = 100, // comfy base speed (parent can override)
+  endBlinkMs = 0, // how long to keep caret blinking after finish
   className = "",
   onDone,
 }) {
@@ -35,7 +35,7 @@ export default function TypewriterHeading({
   }, [text]);
 
   useEffect(() => {
-    let tId;   // typing timer
+    let tId; // typing timer
     let endId; // post-finish blink timer
     let cancel = false;
 
@@ -92,7 +92,15 @@ export default function TypewriterHeading({
       if (tId) clearTimeout(tId);
       if (endId) clearTimeout(endId);
     };
-  }, [start, text, charDelayMs, startDelayMs, reduceMotion, endBlinkMs, typingDone]);
+  }, [
+    start,
+    text,
+    charDelayMs,
+    startDelayMs,
+    reduceMotion,
+    endBlinkMs,
+    typingDone,
+  ]);
 
   // caret shows while typing or during the end-blink hold
   const showCaret = !reduceMotion && caretOn;

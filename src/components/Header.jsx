@@ -1,14 +1,13 @@
-// src/components/Header.jsx
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
 import MobileMenu from "./MobileMenu";
-import logo from "../assets/Idalogo.jpg"; // ← ensure casing matches your file
+import logo from "../assets/Idalogo.jpg";
 
 const LINKS = [
   { href: "/about", label: "About" },
   { href: "/archive", label: "Archive" },
-  { href: "/contact", label: "Contact" }, // CHANGED
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function Header() {
@@ -19,9 +18,8 @@ export default function Header() {
     // not sticky
     <header className="relative z-[1] bg-transparent">
       <div className="mx-auto max-w-6xl px-6 py-5">
-        {/* MOBILE BAR: absolute-centered logo, burger on right (toggle moved into menu) */}
+        {/* MOBILE BAR */}
         <div className="relative h-14 md:hidden">
-          {/* Center: logo (perfectly centered) */}
           <Link
             to="/"
             aria-label="Go to home"

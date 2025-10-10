@@ -1,27 +1,49 @@
 import { useEffect, useState } from "react";
 
-/* crisp, symmetric icons */
+
 function SunIcon({ className = "", ...props }) {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" className={className} {...props}>
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      aria-hidden="true"
+      className={className}
+      {...props}
+    >
       <circle cx="12" cy="12" r="4.25" fill="currentColor" />
-      <g stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" fill="none">
-        <line x1="12" y1="2.5"  x2="12" y2="5.0" />
+      <g
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        fill="none"
+      >
+        <line x1="12" y1="2.5" x2="12" y2="5.0" />
         <line x1="12" y1="19.0" x2="12" y2="21.5" />
-        <line x1="2.5" y1="12"  x2="5.0" y2="12" />
-        <line x1="19.0" y1="12"  x2="21.5" y2="12" />
+        <line x1="2.5" y1="12" x2="5.0" y2="12" />
+        <line x1="19.0" y1="12" x2="21.5" y2="12" />
         <line x1="5.05" y1="5.05" x2="7.2" y2="7.2" />
         <line x1="16.8" y1="16.8" x2="18.95" y2="18.95" />
         <line x1="5.05" y1="18.95" x2="7.2" y2="16.8" />
-        <line x1="16.8" y1="7.2"  x2="18.95" y2="5.05" />
+        <line x1="16.8" y1="7.2" x2="18.95" y2="5.05" />
       </g>
     </svg>
   );
 }
 function MoonIcon({ className = "", ...props }) {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" className={className} {...props}>
-      <path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    <svg
+      viewBox="0 0 24 24"
+      width="20"
+      height="20"
+      aria-hidden="true"
+      className={className}
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+      />
     </svg>
   );
 }
@@ -44,13 +66,18 @@ export default function ThemeToggle({ className = "" }) {
   }, [isDark]);
 
   return (
-    <div className={"flex items-center gap-3 text-[var(--text-link)] " + className}>
+    <div
+      className={"flex items-center gap-3 text-[var(--text-link)] " + className}
+    >
       {/* Sun button */}
       <button
         type="button"
         onClick={() => setIsDark(false)}
         aria-label="Switch to light mode"
-        className={"transition-opacity duration-300 ease-out cursor-pointer " + (isDark ? "opacity-60" : "opacity-100")}
+        className={
+          "transition-opacity duration-300 ease-out cursor-pointer " +
+          (isDark ? "opacity-60" : "opacity-100")
+        }
       >
         <SunIcon />
       </button>
@@ -82,7 +109,10 @@ export default function ThemeToggle({ className = "" }) {
         type="button"
         onClick={() => setIsDark(true)}
         aria-label="Switch to dark mode"
-        className={"transition-opacity duration-300 ease-out cursor-pointer " + (isDark ? "opacity-100" : "opacity-60")}
+        className={
+          "transition-opacity duration-300 ease-out cursor-pointer " +
+          (isDark ? "opacity-100" : "opacity-60")
+        }
       >
         <MoonIcon />
       </button>

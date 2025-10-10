@@ -1,4 +1,3 @@
-// src/routes/Contact.jsx
 import { useRef, useState } from "react";
 
 const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY;
@@ -8,8 +7,8 @@ if (!ACCESS_KEY) {
 
 export default function Contact() {
   const statusRef = useRef(null);
-  const [status, setStatus] = useState(""); // message text
-  const [sending, setSending] = useState(false); // disable button while sending
+  const [status, setStatus] = useState("");
+  const [sending, setSending] = useState(false);
 
   async function onSubmit(e) {
     e.preventDefault();
@@ -68,15 +67,14 @@ export default function Contact() {
         className="grid grid-cols-1 gap-5 sm:gap-7 lg:gap-8 items-stretch isolate
                    rounded-lg sm:rounded-2xl p-3 sm:p-6 lg:p-8
                    ring-1 ring-black/10 dark:ring-white/20
-                   bg-white/25 dark:bg-white/5
-                   backdrop-blur-xl
+                   glass-card backdrop-blur-xl
                    shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]
                    border border-white/30 dark:border-white/10"
       >
         {/* Heading + Form */}
         <div className="flex flex-col gap-6 max-w-prose mx-auto w-full">
           <h1 className="text-4xl sm:text-5xl">Hello!</h1>
-          <p>Send me a note and I’ll get back to you 💌</p>
+          <p>Send me a note and I’ll get back to you. I read everything. 💌</p>
 
           {/* Status region (focusable for a11y) */}
           <p
@@ -90,54 +88,72 @@ export default function Contact() {
           </p>
 
           <form onSubmit={onSubmit} className="grid gap-4 sm:gap-5">
-            {/* Honeypot (spam protection) */}
-            <input
-              type="checkbox"
-              name="botcheck"
-              className="hidden"
-              tabIndex={-1}
-              aria-hidden="true"
-            />
+            {/* Honeypot (hidden so WAVE won't flag it) */}
+            <input type="hidden" name="botcheck" />
 
             {/* Name */}
-            <label className="grid gap-1">
-              <span className="font-medium">Name</span>
+            <div className="grid gap-1">
+              <label htmlFor="contact-name" className="font-medium">
+                Name
+              </label>
               <input
+                id="contact-name"
                 type="text"
                 name="name"
                 required
                 autoComplete="name"
-                className="rounded-lg px-3 py-2 ring-1 ring-black/10 dark:ring-white/20 bg-white/70 dark:bg-white/10 backdrop-blur
+                placeholder="Your name"
+                className="rounded-lg px-3 py-2
+                           ring-1 ring-black/10 dark:ring-white/15
+                           bg-white/60 dark:bg-white/5
+                           dark:text-white dark:placeholder-white/70 placeholder:opacity-60
+                           backdrop-blur
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               />
-            </label>
+            </div>
 
             {/* Email */}
-            <label className="grid gap-1">
-              <span className="font-medium">Email</span>
+            <div className="grid gap-1">
+              <label htmlFor="contact-email" className="font-medium">
+                Email
+              </label>
               <input
+                id="contact-email"
                 type="email"
                 name="email"
                 required
                 autoComplete="email"
-                className="rounded-lg px-3 py-2 ring-1 ring-black/10 dark:ring-white/20 bg-white/70 dark:bg-white/10 backdrop-blur
+                placeholder="Your email"
+                className="rounded-lg px-3 py-2
+                           ring-1 ring-black/10 dark:ring-white/15
+                           bg-white/60 dark:bg-white/5
+                           dark:text-white dark:placeholder-white/70 placeholder:opacity-60
+                           backdrop-blur
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
               />
-            </label>
+            </div>
 
             {/* Message */}
-            <label className="grid gap-1">
-              <span className="font-medium">Message</span>
+            <div className="grid gap-1">
+              <label htmlFor="contact-message" className="font-medium">
+                Message
+              </label>
               <textarea
+                id="contact-message"
                 name="message"
                 required
                 rows={6}
-                className="rounded-lg px-3 py-2 ring-1 ring-black/10 dark:ring-white/20 bg-white/70 dark:bg-white/10 backdrop-blur
+                placeholder="Your message"
+                className="rounded-lg px-3 py-2
+                           ring-1 ring-black/10 dark:ring-white/15
+                           bg-white/60 dark:bg-white/5
+                           dark:text-white dark:placeholder-white/70 placeholder:opacity-60
+                           backdrop-blur
                            focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] resize-y"
               />
-            </label>
+            </div>
 
-            {/* Optional explicit reply-to (kept hidden; we auto-fill from email above) */}
+            {/* Optional explicit reply-to (hidden) */}
             <input type="hidden" name="replyto" value="" />
 
             <div className="flex items-center gap-3">

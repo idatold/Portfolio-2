@@ -62,7 +62,9 @@ export default function ProjectsCarousel({ projects = [] }) {
       aria-label="Featured projects"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <h2 className="text-center text-2xl sm:text-3xl mb-4 sm:mb-6">Projects</h2>
+      <h2 className="text-center text-2xl sm:text-3xl mb-4 sm:mb-6">
+        Projects
+      </h2>
 
       <div className="relative isolate rounded-2xl sm:rounded-3xl overflow-hidden bg-transparent">
         <span
@@ -92,11 +94,14 @@ export default function ProjectsCarousel({ projects = [] }) {
               Array.isArray(p.tech) && p.tech.length
                 ? p.tech
                 : typeof p.stack === "string"
-                ? p.stack.split(",").map((s) => s.trim()).filter(Boolean)
+                ? p.stack
+                    .split(",")
+                    .map((s) => s.trim())
+                    .filter(Boolean)
                 : [];
 
-            // internal path using slug (fallback to id) -> ARCHIVE
-            const to = p.to ?? (p.slug ? `/archive/${p.slug}` : `/archive/${p.id}`);
+            const to =
+              p.to ?? (p.slug ? `/archive/${p.slug}` : `/archive/${p.id}`);
 
             return (
               <li
@@ -113,8 +118,7 @@ export default function ProjectsCarousel({ projects = [] }) {
                   className="
                     relative h-full flex flex-col
                     rounded-xl sm:rounded-2xl p-3 sm:p-5
-                    bg-white/25 dark:bg-white/5
-                    backdrop-blur-xl
+                    glass-card backdrop-blur-xl
                     border border-white/30 dark:border-white/10
                     ring-0
                     group-hover:ring-2 group-hover:ring-[var(--accent)]
@@ -124,7 +128,6 @@ export default function ProjectsCarousel({ projects = [] }) {
                     cursor-pointer
                   "
                 >
-                  {/* Full-card overlay link so the WHOLE card navigates (SPA) */}
                   <Link
                     to={to}
                     aria-label={`Open project: ${p.title}`}
@@ -137,7 +140,6 @@ export default function ProjectsCarousel({ projects = [] }) {
                     <span className="sr-only">Open project</span>
                   </Link>
 
-                  {/* Image */}
                   <div className="relative rounded-lg overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
                     <img
                       src={p.imgSrc}
@@ -154,7 +156,6 @@ export default function ProjectsCarousel({ projects = [] }) {
                     />
                   </div>
 
-                  {/* Content */}
                   <div className="mt-4 flex-1 grid grid-rows-[auto_auto_1fr_auto] gap-y-1">
                     <div className="min-h-[1.8rem] flex flex-wrap gap-1.5">
                       {tech.map((tag) => (
@@ -181,7 +182,6 @@ export default function ProjectsCarousel({ projects = [] }) {
                       <p>{p.line2}</p>
                     </div>
 
-                    {/* Visual pill only; the overlay Link handles navigation */}
                     <div className="mt-4 self-end">
                       <span
                         aria-hidden="true"

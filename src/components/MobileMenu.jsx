@@ -1,4 +1,3 @@
-// src/components/MobileMenu.jsx
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
@@ -58,7 +57,7 @@ export default function MobileMenu({
       document.body.style.overflow = prevOverflow;
       returnTo?.focus?.();
     };
-  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const isRoute = (href) => href.startsWith("/") && !href.includes("#");
 
@@ -79,7 +78,7 @@ export default function MobileMenu({
         tabIndex={-1}
       />
 
-      {/* centered wide panel (not full screen) */}
+      {/* centered wide panel*/}
       <div
         ref={panelRef}
         role="dialog"
@@ -115,7 +114,7 @@ export default function MobileMenu({
           </button>
         </div>
 
-        {/* nav list (centered) */}
+        {/* nav list*/}
         <div className="mt-2 flex justify-center">
           <ul className="flex flex-col items-center gap-4 uppercase tracking-[0.2em] text-sm text-center">
             {links.map((l) => (

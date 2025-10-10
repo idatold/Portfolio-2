@@ -1,7 +1,7 @@
-import idaAbout from "../assets/ida-about.jpg"; // replace with your actual filename if different
+// src/routes/About.jsx
+import idaAbout from "../assets/ida-about.jpg";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 
-// icons (brands from Simple Icons) + generic icons
 import {
   SiHtml5,
   SiCss3,
@@ -11,7 +11,6 @@ import {
   SiGithub,
   SiNetlify,
   SiVite,
-  // SiVisualstudiocode, // ❌ not available in your react-icons build
   SiPostman,
   SiCanva,
   SiNextdotjs,
@@ -19,7 +18,6 @@ import {
   SiVercel,
   SiNpm,
   SiAdobephotoshop,
-  // SiAdobelightroom, // ⚠️ removed to avoid import error
 } from "react-icons/si";
 import {
   FiSmartphone,
@@ -31,10 +29,9 @@ import {
   FiRefreshCw,
   FiClipboard,
   FiTrendingUp,
-  FiCode, // ✅ use this for "Visual Studio Code"
+  FiCode,
 } from "react-icons/fi";
 
-// Small chip renderer for skills/tools
 function SkillChip({ Icon, label }) {
   return (
     <li
@@ -48,9 +45,7 @@ function SkillChip({ Icon, label }) {
   );
 }
 
-// About keeps the same “polaroid” vibe as Home, but sits higher on mobile.
 export default function About() {
-  // Data (easy to edit later)
   const langsFrameworks = [
     { Icon: SiHtml5, label: "HTML" },
     { Icon: SiCss3, label: "CSS" },
@@ -72,7 +67,7 @@ export default function About() {
     { Icon: SiGithub, label: "GitHub" },
     { Icon: SiNetlify, label: "Netlify" },
     { Icon: SiVite, label: "Vite" },
-    { Icon: FiCode, label: "Visual Studio Code" }, // ✅ swapped to FiCode
+    { Icon: FiCode, label: "Visual Studio Code" },
     { Icon: SiPostman, label: "Postman" },
     { Icon: SiCanva, label: "Canva" },
     { Icon: SiNextdotjs, label: "Next.js" },
@@ -80,7 +75,6 @@ export default function About() {
     { Icon: SiVercel, label: "Vercel" },
     { Icon: SiNpm, label: "npm" },
     { Icon: SiAdobephotoshop, label: "Adobe Photoshop" },
-    // { Icon: SiAdobelightroom, label: "Adobe Lightroom" }, // ⚠️ removed
   ];
 
   const methodologies = [
@@ -100,10 +94,7 @@ export default function About() {
       <Breadcrumbs
         className="text-sm opacity-80 mb-4"
         separator="›"
-        items={[
-          { label: "Home", href: "/" },
-          { label: "About" }, // current page
-        ]}
+        items={[{ label: "Home", href: "/" }, { label: "About" }]}
       />
 
       <div
@@ -111,8 +102,7 @@ export default function About() {
           grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-7 lg:gap-8 items-stretch isolate
           rounded-lg sm:rounded-2xl p-3 sm:p-6 lg:p-8
           ring-1 ring-black/10 dark:ring-white/20
-          bg-white/25 dark:bg-white/5
-          backdrop-blur-xl
+          glass-card backdrop-blur-xl
           shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]
           border border-white/30 dark:border-white/10
           overflow-visible
@@ -168,14 +158,16 @@ export default function About() {
             </p>
 
             <p className="leading-relaxed">
-              I call <strong>Larvik</strong> home, where I live with my boyfriend
-              and our Maine Coon cat, <strong>Kali</strong>, who often supervises
-              my coding sessions. I love music, everything from folk metal to
-              pop, and spending time outdoors — especially in autumn, my favorite
-              season. I have a mild caffeine addiction, an endless love for hot
-              beverages, and an intense dislike for wet socks. Whether I’m writing
-              code, taking photos, or creating something new, my goal is always to
-              build experiences that feel intuitive, meaningful, and made with care. I`m looking forward to learn so much more in the future!
+              I call <strong>Larvik</strong> home, where I live with my
+              boyfriend and our Maine Coon cat, <strong>Kali</strong>, who often
+              supervises my coding sessions. I love music, everything from folk
+              metal to pop, and spending time outdoors — especially in autumn,
+              my favorite season. I have a mild caffeine addiction, an endless
+              love for hot beverages, and an intense dislike for wet socks.
+              Whether I’m writing code, taking photos, or creating something
+              new, my goal is always to build experiences that feel intuitive,
+              meaningful, and made with care. I`m looking forward to learn so
+              much more in the future!
             </p>
           </div>
         </div>
@@ -217,7 +209,9 @@ export default function About() {
 
         {/* Methodologies */}
         <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/15 ring-1 ring-black/5 dark:ring-white/10">
-          <h2 className="font-['Permanent_Marker'] text-2xl mb-4">Methodologies</h2>
+          <h2 className="font-['Permanent_Marker'] text-2xl mb-4">
+            Methodologies
+          </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm font-medium">
             {methodologies.map(({ Icon, label }) => (
               <SkillChip key={label} Icon={Icon} label={label} />
