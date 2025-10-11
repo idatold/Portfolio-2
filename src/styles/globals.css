@@ -1,4 +1,3 @@
-/* src/styles/globals.css */
 @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Permanent+Marker&display=swap");
 @import "tailwindcss";
 
@@ -80,11 +79,21 @@
     text-decoration: underline;
   }
 
-  /* NEW: make native controls inherit the page theme palette */
+  /* Inputs: force light theme to use heading color; placeholders softened via token.
+     Dark theme overrides live later in this file. */
   input,
   textarea,
   select {
     color-scheme: inherit;
+    color: var(--text-heading) !important;
+    -webkit-text-fill-color: var(--text-heading) !important;
+    caret-color: var(--text-heading);
+  }
+
+  input::placeholder,
+  textarea::placeholder,
+  select::placeholder {
+    color: color-mix(in oklab, var(--text-heading) 70%, transparent);
   }
 }
 
