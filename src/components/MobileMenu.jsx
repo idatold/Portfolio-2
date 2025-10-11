@@ -159,13 +159,13 @@ export default function MobileMenu({
                       "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]",
                       "transition-colors shadow-sm border",
                       "backdrop-blur-xl backdrop-brightness-75",
-                      // Light
+
                       "bg-[color-mix(in_oklab,var(--accent)_36%,transparent)]",
                       "hover:bg-[color-mix(in_oklab,var(--accent)_42%,transparent)]",
-                      // Dark
+
                       "dark:bg-white/22 dark:hover:bg-white/26",
                       "border-white/40 dark:border-white/15",
-                      // soft inner glow
+
                       "before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:pointer-events-none",
                       "before:shadow-[inset_0_0_18px_0_color-mix(in_oklab,var(--accent)_32%,transparent)]",
                       "dark:before:shadow-[inset_0_0_18px_0_rgba(255,255,255,0.14)]",
