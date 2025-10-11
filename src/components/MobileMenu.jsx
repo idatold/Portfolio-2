@@ -1,6 +1,7 @@
 // src/components/MobileMenu.jsx
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import ThemeToggle from "./ThemeToggle";
 
 export default function MobileMenu({
   open = false,
@@ -9,12 +10,10 @@ export default function MobileMenu({
   returnFocusRef,
 }) {
   const panelRef = useRef(null);
-
   const isRoute = (href) => href.startsWith("/") && !href.includes("#");
 
   useEffect(() => {
     if (!open) return;
-
     const node = panelRef.current;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -28,12 +27,10 @@ export default function MobileMenu({
         )
       );
     }
-
     function focusFirst() {
       const [first] = getFocusable();
       first?.focus?.();
     }
-
     const onKey = (e) => {
       if (e.key === "Escape") {
         e.preventDefault();
@@ -54,7 +51,6 @@ export default function MobileMenu({
     };
 
     window.addEventListener("keydown", onKey);
-    // focus after mount
     setTimeout(focusFirst, 0);
 
     return () => {
@@ -66,74 +62,104 @@ export default function MobileMenu({
 
   return (
     <div className={`md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
-      {/* dim overlay */}
-      <button
-        type="button"
-        aria-hidden="true"
-        onClick={onClose}
-        className={`fixed inset-0 transition-opacity duration-200 ${
-          open ? "opacity-100" : "opacity-0"
-        } z-[90] bg-black/40`}
-        tabIndex={-1}
-      />
-
-      {/* centered wide panel (not full screen) */}
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"
         className={[
-          "fixed top-[72px] left-3 right-3 mx-auto z-[100] isolate",
-          "w-[92vw] max-w-[520px] rounded-2xl p-4 sm:p-5",
-          "backdrop-blur bg-black/20 dark:bg-white/10 ring-1 ring-white/15",
-          "transition-all duration-200",
+          "fixed inset-0 z-[120] isolate flex flex-col transition-all duration-200",
           open ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-1.5",
+          "backdrop-blur-2xl backdrop-brightness-70",
+          "bg-[color-mix(in_oklab,var(--grad-end)_66%,transparent)]",
+          "dark:bg-[color-mix(in_oklab,var(--grad-mid)_66%,transparent)]",
+          "ring-1 ring-black/10 dark:ring-white/10",
+          "border-x border-white/40 dark:border-white/12",
+          "will-change-transform",
         ].join(" ")}
       >
-        {/* close button */}
-        <div className="flex justify-end">
+        {/* OPAQUE TOP CAP (prevents header bleed) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-14 sm:h-16
+                     bg-[linear-gradient(to_bottom,oklab(from_var(--grad-end)_l_a_b/_1)_0%,oklab(from_var(--grad-end)_l_a_b/_1)_60%,transparent_100%)]
+                     dark:bg-[linear-gradient(to_bottom,oklab(from_var(--grad-mid)_l_a_b/_1)_0%,oklab(from_var(--grad-mid)_l_a_b/_1)_60%,transparent_100%)]"
+        />
+
+        {/* TOP BAR: visually Theme left, ✕ right — DOM order keeps ✕ first for focus */}
+        <div className="relative z-[1] flex items-center justify-between p-4">
+          {/* ✕ first in DOM (focus-first), but visually ordered to the right */}
           <button
             type="button"
             onClick={onClose}
             aria-label="Close menu"
-            className="h-9 w-9 inline-flex items-center justify-center rounded-lg
-                       border border-white/20 bg-white/10 backdrop-blur
-                       ring-1 ring-black/5 dark:ring-white/10
-                       hover:border-[var(--accent)] transition
-                       focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
-                       cursor-pointer"
+            className={[
+              "order-2 h-10 w-10 inline-flex items-center justify-center rounded-xl leading-none",
+              "border border-white/40 dark:border-white/12",
+              "bg-white/15 dark:bg-white/10",
+              "hover:bg-white/25 dark:hover:bg-white/14",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]",
+              // ensure exact centering of the glyph
+              "[&>svg]:block",
+            ].join(" ")}
           >
-            <svg viewBox="0 0 24 24" aria-hidden="true" className="w-5 h-5">
-              <path fill="currentColor" d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.3 19.71 2.89 18.3 9.17 12 2.89 5.71 4.3 4.29 10.59 10.6l6.3-6.31z"/>
+            {/* True centered “X”: two lines, centered in 24x24 viewBox */}
+            <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+              <line x1="6" y1="6" x2="18" y2="18"
+                    stroke="currentColor" strokeWidth="2"
+                    strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+              <line x1="18" y1="6" x2="6" y2="18"
+                    stroke="currentColor" strokeWidth="2"
+                    strokeLinecap="round" vectorEffect="non-scaling-stroke" />
             </svg>
           </button>
+
+          <div className="order-1 flex items-center gap-3">
+            <span className="text-xs uppercase tracking-[0.18em] opacity-90 text-[var(--text-link)]">
+              Theme
+            </span>
+            <ThemeToggle />
+          </div>
         </div>
 
-        {/* nav list (centered) */}
-        <div className="mt-2 flex justify-center">
-          <ul className="flex flex-col items-center gap-4 uppercase tracking-[0.2em] text-sm text-center">
-            {links.map((l) => (
-              <li key={l.href}>
-                {isRoute(l.href) ? (
-                  <Link
-                    to={l.href}
+        {/* LINKS */}
+        <div className="flex-1">
+          <ul className="mx-auto max-w-[560px] px-4 pt-1 sm:pt-2 pb-6 flex flex-col items-center text-center gap-3 sm:gap-3.5">
+            {links.map((l) => {
+              const Item = isRoute(l.href) ? Link : "a";
+              const itemProps = isRoute(l.href) ? { to: l.href } : { href: l.href };
+
+              return (
+                <li key={l.href} className="w-full">
+                  <Item
+                    {...itemProps}
                     onClick={onClose}
-                    className="inline-block py-3 px-2 plop no-underline cursor-pointer select-none"
+                    className={[
+                      "relative block w-full rounded-2xl px-4 py-3.5",
+                      "font-semibold uppercase tracking-[0.14em]",
+                      "text-base sm:text-lg",
+                      "no-underline cursor-pointer select-none",
+                      "text-[var(--text-link)]",
+                      "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]",
+                      "transition-colors shadow-sm border",
+                      "backdrop-blur-xl backdrop-brightness-75",
+                      // Light
+                      "bg-[color-mix(in_oklab,var(--accent)_36%,transparent)]",
+                      "hover:bg-[color-mix(in_oklab,var(--accent)_42%,transparent)]",
+                      // Dark
+                      "dark:bg-white/22 dark:hover:bg-white/26",
+                      "border-white/40 dark:border-white/15",
+                      // soft inner glow
+                      "before:content-[''] before:absolute before:inset-0 before:rounded-2xl before:pointer-events-none",
+                      "before:shadow-[inset_0_0_18px_0_color-mix(in_oklab,var(--accent)_32%,transparent)]",
+                      "dark:before:shadow-[inset_0_0_18px_0_rgba(255,255,255,0.14)]",
+                    ].join(" ")}
                   >
                     {l.label}
-                  </Link>
-                ) : (
-                  <a
-                    href={l.href}
-                    onClick={onClose}
-                    className="inline-block py-3 px-2 plop no-underline cursor-pointer select-none"
-                  >
-                    {l.label}
-                  </a>
-                )}
-              </li>
-            ))}
+                  </Item>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
