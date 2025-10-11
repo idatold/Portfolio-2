@@ -18,7 +18,7 @@ export default function NotFound() {
         <Link className="underline glow-link" to="/">
           Go home
         </Link>
-        <Link className="underline glow-link" to="/projects">
+        <Link className="underline glow-link" to="/archive">
           Open the archive
         </Link>
       </div>

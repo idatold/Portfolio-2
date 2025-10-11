@@ -1,4 +1,3 @@
-// src/routes/About.jsx
 import idaAbout from "../assets/ida-about.jpg";
 import Breadcrumbs from "../components/Breadcrumbs.jsx";
 

@@ -88,7 +88,6 @@ export default function Contact() {
           </p>
 
           <form onSubmit={onSubmit} className="grid gap-4 sm:gap-5">
-            {/* Honeypot (hidden so WAVE won't flag it) */}
             <input type="hidden" name="botcheck" />
 
             {/* Name */}

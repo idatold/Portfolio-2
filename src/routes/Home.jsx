@@ -1,4 +1,3 @@
-// src/routes/Home.jsx
 import { useEffect, useMemo, useState } from "react";
 import TypewriterHeading from "../components/TypewriterHeading";
 import idaMain from "../assets/idamain.jpg";

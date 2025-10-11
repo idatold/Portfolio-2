@@ -15,7 +15,6 @@ export default function Header() {
   const burgerRef = useRef(null);
 
   return (
-    // not sticky
     <header className="relative z-[1] bg-transparent">
       <div className="mx-auto max-w-6xl px-6 py-5">
         {/* MOBILE BAR */}

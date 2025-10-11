@@ -1,4 +1,3 @@
-// src/components/MobileMenu.jsx
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ThemeToggle";
@@ -61,7 +60,11 @@ export default function MobileMenu({
   }, [open, onClose, returnFocusRef]);
 
   return (
-    <div className={`md:hidden ${open ? "pointer-events-auto" : "pointer-events-none"}`}>
+    <div
+      className={`md:hidden ${
+        open ? "pointer-events-auto" : "pointer-events-none"
+      }`}
+    >
       <div
         ref={panelRef}
         role="dialog"
@@ -78,7 +81,6 @@ export default function MobileMenu({
           "will-change-transform",
         ].join(" ")}
       >
-        {/* OPAQUE TOP CAP (prevents header bleed) */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-14 sm:h-16
@@ -86,9 +88,8 @@ export default function MobileMenu({
                      dark:bg-[linear-gradient(to_bottom,oklab(from_var(--grad-mid)_l_a_b/_1)_0%,oklab(from_var(--grad-mid)_l_a_b/_1)_60%,transparent_100%)]"
         />
 
-        {/* TOP BAR: visually Theme left, ✕ right — DOM order keeps ✕ first for focus */}
         <div className="relative z-[1] flex items-center justify-between p-4">
-          {/* ✕ first in DOM (focus-first), but visually ordered to the right */}
+          {/* top bar */}
           <button
             type="button"
             onClick={onClose}
@@ -105,15 +106,28 @@ export default function MobileMenu({
           >
             {/* True centered “X”: two lines, centered in 24x24 viewBox */}
             <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
-              <line x1="6" y1="6" x2="18" y2="18"
-                    stroke="currentColor" strokeWidth="2"
-                    strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-              <line x1="18" y1="6" x2="6" y2="18"
-                    stroke="currentColor" strokeWidth="2"
-                    strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+              <line
+                x1="6"
+                y1="6"
+                x2="18"
+                y2="18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
+              <line
+                x1="18"
+                y1="6"
+                x2="6"
+                y2="18"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
             </svg>
           </button>
-
           <div className="order-1 flex items-center gap-3">
             <span className="text-xs uppercase tracking-[0.18em] opacity-90 text-[var(--text-link)]">
               Theme
@@ -127,7 +141,9 @@ export default function MobileMenu({
           <ul className="mx-auto max-w-[560px] px-4 pt-1 sm:pt-2 pb-6 flex flex-col items-center text-center gap-3 sm:gap-3.5">
             {links.map((l) => {
               const Item = isRoute(l.href) ? Link : "a";
-              const itemProps = isRoute(l.href) ? { to: l.href } : { href: l.href };
+              const itemProps = isRoute(l.href)
+                ? { to: l.href }
+                : { href: l.href };
 
               return (
                 <li key={l.href} className="w-full">

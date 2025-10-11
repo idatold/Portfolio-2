@@ -1,14 +1,13 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import SideFooter from "./components/SideFooter.jsx";
-import Starfield from "./components/StarField.jsx"; // file has big F
+import Starfield from "./components/StarField.jsx";
 import Home from "./routes/Home.jsx";
 import Archive from "./routes/Archive.jsx";
 import ProjectDetail from "./routes/ProjectDetail.jsx";
 import About from "./routes/About.jsx";
 import NotFound from "./routes/NotFound.jsx";
-import Contact from "./routes/Contact.jsx"; // ADDED
+import Contact from "./routes/Contact.jsx";
 
 export default function App() {
   return (
@@ -16,7 +15,6 @@ export default function App() {
       <div className="relative min-h-dvh flex flex-col bg-transparent">
         <Starfield count={420} />
 
-        {/* elevate header above <main z-[1]> */}
         <div className="relative z-[60]">
           <Header />
         </div>
