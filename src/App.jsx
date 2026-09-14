@@ -17,7 +17,7 @@ export default function App() {
         <Starfield count={420} />
 
         {/* elevate header above <main z-[1]> */}
-        <div className="relative z-[60]">
+        <div className="relative z-[60] pointer-events-none">
           <Header />
         </div>
 

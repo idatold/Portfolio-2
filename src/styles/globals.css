@@ -68,6 +68,7 @@
   h3 {
     font-family: "Permanent Marker", system-ui, sans-serif;
     color: var(--text-heading);
+    letter-spacing: 0.01em;
   }
 
   a {
@@ -100,6 +101,17 @@
 /* ================================
    KEYFRAMES (GLOBAL)
    ================================ */
+@keyframes ida-hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes ida-caret-blink {
   0%,
   49% {

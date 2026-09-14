@@ -75,11 +75,11 @@ export default function TypewriterHeading({
         }
 
         // steady base + tiny, human jitter
-        const jitter = Math.floor(Math.random() * 31) - 10; // -10..+20ms
+        const jitter = Math.floor(Math.random() * 17) - 8; // ±8ms
         let next = Math.max(60, charDelayMs + jitter);
 
         // small breath after punctuation (kept subtle)
-        if (isPauseChar(text[i - 1])) next += 100;
+        if (isPauseChar(text[i - 1])) next += 75;
 
         tick(next);
       }, delay);
