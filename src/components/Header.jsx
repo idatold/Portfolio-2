@@ -16,7 +16,7 @@ export default function Header() {
 
   return (
     // not sticky
-    <header className="relative z-[1] bg-transparent">
+    <header className="relative z-[1] bg-transparent pointer-events-auto">
       <div className="mx-auto max-w-6xl px-6 py-5">
         {/* MOBILE BAR */}
         <div className="relative h-14 md:hidden">

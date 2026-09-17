@@ -72,22 +72,24 @@ export default function Home() {
         <div
           className="
             grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-7 lg:gap-8 items-stretch isolate
-            rounded-lg sm:rounded-2xl p-3 sm:p-6 lg:p-8
+            rounded-lg sm:rounded-2xl p-4 sm:p-7 lg:p-10
             ring-1 ring-black/10 dark:ring-white/20
             glass-card backdrop-blur-xl
             shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]
             border border-white/30 dark:border-white/10
             transition-all duration-700
             overflow-visible
+            animate-[ida-hero-enter_0.6s_cubic-bezier(0.22,1,0.36,1)_100ms_both]
+            motion-reduce:animate-none
           "
         >
           {/* Left: polaroid — desktop only */}
           <div className="order-2 lg:order-1 lg:h-full hidden lg:flex items-center justify-center">
-            <div className="relative w-full max-w-[320px] bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
+            <div className="group relative w-full max-w-[320px] bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
               <img
                 src={idaMain}
                 alt="Ida smiling on a boardwalk"
-                className="block w-full aspect-[4/5] object-cover [filter:grayscale(100%)]"
+                className="block w-full aspect-[4/5] object-cover [filter:grayscale(100%)] group-hover:[filter:grayscale(0%)] transition-[filter] duration-[400ms]"
                 loading="lazy"
                 decoding="async"
               />
@@ -98,7 +100,7 @@ export default function Home() {
           <div className="order-1 lg:order-2 lg:h-full flex">
             <div
               className="
-                flex flex-col justify-center gap-6 sm:gap-8
+                flex flex-col justify-center gap-7 sm:gap-9
                 w-full max-w-prose
                 items-center lg:items-start
                 text-center lg:text-left
@@ -111,7 +113,7 @@ export default function Home() {
                 text="Hi, I’m Ida!"
                 start={startH1}
                 startDelayMs={360}
-                charDelayMs={100}
+                charDelayMs={75}
                 endBlinkMs={0}
                 className="text-4xl sm:text-5xl"
                 onDone={() => setH1Done(true)}
@@ -119,11 +121,11 @@ export default function Home() {
 
               {/* Mobile-only polaroid between H1 and paragraph */}
               <div className="lg:hidden w-full overflow-visible">
-                <div className="relative w-full max-w-[320px] mx-auto bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
+                <div className="group relative w-full max-w-[320px] mx-auto bg-white/30 dark:bg-white/5 rounded-sm shadow-md ring-1 ring-black/10 dark:ring-white/10 rotate-[-1.5deg] px-4 pt-4 pb-10 backdrop-blur-md border border-white/20 dark:border-white/10">
                   <img
                     src={idaMain}
                     alt="Ida on a rooftop"
-                    className="block w-full aspect-[4/5] object-cover [filter:grayscale(100%)]"
+                    className="block w-full aspect-[4/5] object-cover [filter:grayscale(100%)] group-hover:[filter:grayscale(0%)] transition-[filter] duration-[400ms]"
                     loading="lazy"
                     decoding="async"
                   />
@@ -151,9 +153,9 @@ export default function Home() {
                 text="Nice To Meet Ya!"
                 start={startH2}
                 startDelayMs={80}
-                charDelayMs={105}
+                charDelayMs={80}
                 endBlinkMs={1600}
-                className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl"
+                className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl min-h-[1.4em]"
               />
             </div>
           </div>

@@ -8,7 +8,7 @@ export default function SideFooter({
     <>
       {/* Desktop/tablet: vertical rail on the left (sticky/fixed) */}
       <div
-        className="hidden md:flex fixed inset-y-0 left-6 md:left-8 lg:left-10 xl:left-12 z-40
+        className="hidden md:flex fixed inset-y-0 left-6 md:left-8 lg:left-10 xl:left-12 z-[65]
                    flex-col items-center justify-between py-10 bg-transparent"
         role="contentinfo"
         aria-label="Site footer"
@@ -19,10 +19,12 @@ export default function SideFooter({
           rel="noopener noreferrer"
           aria-label="GitHub (opens in new tab)"
           className="plop no-underline cursor-pointer select-none opacity-80 hover:opacity-100
-                     [writing-mode:vertical-rl] [text-orientation:mixed] rotate-180
-                     tracking-[0.35em] text-xs uppercase"
+                     [writing-mode:vertical-rl] [text-orientation:mixed]
+                     px-3 py-2"
         >
-          GitHub
+          <span className="rotate-180 inline-block tracking-[0.35em] text-xs uppercase">
+            GitHub
+          </span>
         </a>
 
         <a
@@ -31,19 +33,21 @@ export default function SideFooter({
           rel="noopener noreferrer"
           aria-label="LinkedIn (opens in new tab)"
           className="plop no-underline cursor-pointer select-none opacity-80 hover:opacity-100
-                     [writing-mode:vertical-rl] [text-orientation:mixed] rotate-180
-                     tracking-[0.35em] text-xs uppercase"
+                     [writing-mode:vertical-rl] [text-orientation:mixed]
+                     px-3 py-2"
         >
-          LinkedIn
+          <span className="rotate-180 inline-block tracking-[0.35em] text-xs uppercase">
+            LinkedIn
+          </span>
         </a>
 
         <span
           aria-label={`Copyright ${year}`}
           className="select-none opacity-70
-                     [writing-mode:vertical-rl] [text-orientation:mixed] rotate-180
+                     [writing-mode:vertical-rl] [text-orientation:mixed]
                      tracking-[0.35em] text-xs uppercase"
         >
-          © {year}
+          <span className="rotate-180 inline-block">© {year}</span>
         </span>
       </div>
 
