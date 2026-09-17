@@ -155,7 +155,7 @@ export default function Home() {
                 startDelayMs={80}
                 charDelayMs={80}
                 endBlinkMs={1600}
-                className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl"
+                className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl min-h-[1.4em]"
               />
             </div>
           </div>
